@@ -1,16 +1,17 @@
 package trilha.back.financys.entities;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+@Entity
 public class Lancamento<Date> implements Comparable<Lancamento>
 {
-
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
+	@Id
 	private long id;
 	private long categoryId;
 	private String name;

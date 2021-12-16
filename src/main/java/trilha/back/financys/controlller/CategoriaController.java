@@ -1,35 +1,59 @@
 package trilha.back.financys.controlller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import trilha.back.financys.entities.Categoria;
+import trilha.back.financys.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping (path = "/categorias")
 public class CategoriaController {
-	
-	private List<Categoria> lista = new ArrayList<Categoria>();
-	
+
+	@Autowired
+	CategoriaRepository categoriaRepository;
+
+
 	@GetMapping
 	public List<Categoria> listarCategoria() {
-		return lista;
-	}  
-	
-	@PostMapping
-	public int criarCategoria(@RequestBody Categoria categoria) {
-		lista.add(categoria);
-		
-		return lista.size();
-	} 
-	
-	
-	
+		return categoriaRepository.findAll();
+	}
+
+	@GetMapping(path = "/{id}")
+	public Optional<Categoria> listaCategoriaId (@PathVariable(value="id") long id){
+		if (id == 0){
+			System.out.println("id não encontrado");
+		}
+		return categoriaRepository.findById(id);
+	}
+
+    @PostMapping
+	public Categoria criarCategoria(@RequestBody Categoria categoria) {
+		return categoriaRepository.save(categoria);
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public void deletaCategoria(@PathVariable(value="id") long id) {
+		categoriaRepository.deleteById(id);
+	}
+
+	@PutMapping(path = "/{id}")
+	public Categoria atualizaCategoria(@RequestBody Categoria categoria, @PathVariable(value="id") long id){
+		//Pega a categoria pelo id que veio no path e coloca em uma variável
+		Categoria categoriaEdita = categoriaRepository.findById(id)
+				.orElseThrow();
+
+		// edita a variável que você criou
+		categoriaEdita.setName(categoria.getName());
+		categoriaEdita.setDescription(categoria.getDescription());
+
+		// salva a variável editada
+		return categoriaRepository.save(categoriaEdita);
+	}
+
+
 }

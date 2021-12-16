@@ -1,9 +1,16 @@
 package trilha.back.financys.entities;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Categoria {
-	
+	@Id
 	private long id;
+
 	private String name;
+
 	private String description;
 	
 	public Categoria(long id, String name, String description) {
