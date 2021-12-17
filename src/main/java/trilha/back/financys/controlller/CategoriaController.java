@@ -3,7 +3,6 @@ package trilha.back.financys.controlller;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +24,6 @@ public class CategoriaController {
 
 	@GetMapping(path = "/{id}")
 	public Optional<Categoria> listaCategoriaId (@PathVariable(value="id") long id){
-		if (id == 0){
-			System.out.println("id não encontrado");
-		}
 		return categoriaRepository.findById(id);
 	}
 

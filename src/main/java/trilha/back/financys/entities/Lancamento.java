@@ -2,16 +2,15 @@ package trilha.back.financys.entities;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 
 @Entity
 public class Lancamento<Date> implements Comparable<Lancamento>
 {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private long categoryId;
 	private String name;
