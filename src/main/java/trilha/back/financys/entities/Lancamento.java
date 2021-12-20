@@ -105,4 +105,7 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 	public int compareTo(Lancamento outroLancamento) {
 		return this.date.compareTo(outroLancamento.getDate());
 	}
+
+    public Object getCategoryid() {
+    }
 }
