@@ -3,8 +3,6 @@ package trilha.back.financys.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import trilha.back.financys.entities.Categoria;
 import trilha.back.financys.exceptions.CategoriaNotFound;
 import trilha.back.financys.repository.CategoriaRepository;
@@ -35,10 +33,10 @@ public class CategoriaService {
         return ResponseEntity.ok().body(categoria);
     }
 
-    public void deletaCategoria(@PathVariable(value = "id") long id) {
+    public void deletaCategoria(long id) {
         categoriaRepository.deleteById(id);
     }
-    public Categoria atualizaCategoria(@RequestBody Categoria categoria, @PathVariable(value="id") long id){
+    public Categoria atualizaCategoria(Categoria categoria, long id){
         Categoria categoriaEdita = categoriaRepository.findById(id)
                 .orElseThrow();
         categoriaEdita.setName(categoria.getName());

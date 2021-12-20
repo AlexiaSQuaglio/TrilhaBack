@@ -1,6 +1,7 @@
 package trilha.back.financys.controlller;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import trilha.back.financys.entities.Categoria;
+
 import trilha.back.financys.entities.Lancamento;
-import trilha.back.financys.repository.LancamentoRepository;
 import trilha.back.financys.service.CategoriaService;
 import trilha.back.financys.service.LancamentoService;
 
@@ -25,13 +25,14 @@ public class LancamentoController {
 	private LancamentoService lancamentoService;
 
 	@GetMapping
-	public ResponseEntity<Object> getLancamento(){
+	public ResponseEntity<Object> gerarlancamento(){
 		return ResponseEntity.ok(lancamentoService.listarLancamento());
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Lancamento> validateCategoryById(@PathVariable Long id) {
-		return ResponseEntity.ok(lancamentoService.criarLancamento());
+		var lanca = new Lancamento<Date>();
+		return lancamentoService.criarLancamento(lanca);
 	}
 
 	@PostMapping

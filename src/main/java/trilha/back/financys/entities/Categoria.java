@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Categoria {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	private String name;
 
@@ -25,11 +25,11 @@ public class Categoria {
 	
 	public Categoria() { }
 
-	public long getId() {
+	public Long getId() {
 		return id;
 }
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 }
 	public String getName() {
@@ -46,5 +46,5 @@ public class Categoria {
 	public void setDescription(String description) {
 		this.description = description;
 }
-	
+
 }

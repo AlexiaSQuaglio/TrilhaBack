@@ -1,15 +1,14 @@
 package trilha.back.financys.controlller;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import trilha.back.financys.entities.Categoria;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.service.CategoriaService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping (path = "/categorias")
@@ -55,4 +54,3 @@ public class CategoriaController {
 	}
 
 
-}

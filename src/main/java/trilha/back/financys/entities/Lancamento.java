@@ -12,7 +12,7 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private long categoryId;
+	private Long categoryId;
 	private String name;
 	private String description;
 	private String amount;
@@ -20,7 +20,7 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 	private String type;
 	private boolean paid;
 	
-	public Lancamento(long id, long categoryId, String name, String description, String amount,
+	public Lancamento(long id, Long categoryId, String name, String description, String amount,
 					  String date, String type, boolean paid) {
 			this.id = id;
 			this.categoryId = categoryId; 
@@ -49,11 +49,11 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 			this.id = id;
 		}
 		
-		public long getCategoryId () {
+		public Long getCategoryId () {
 			return categoryId;
 		}
 		
-		public void setCategoryId(long categoryId) {
+		public void setCategoryId(Long categoryId) {
 			this.categoryId = categoryId;
 		}
 		
@@ -106,6 +106,4 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 		return this.date.compareTo(outroLancamento.getDate());
 	}
 
-    public Object getCategoryid() {
-    }
 }

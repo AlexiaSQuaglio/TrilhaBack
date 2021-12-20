@@ -24,37 +24,47 @@ public class LancamentoService {
         return lancamentoRepository.findAll();
     }
 
-    private boolean validateEntryById(long categoryid) {
-    }
-    public ResponseEntity<Lancamento> criarLancamento(Lancamento lancamento) {
-        if (validateEntryById((Long) lancamento.getCategoryid())) {
-            return ResponseEntity.ok(lancamentoRepository.save(lancamento));
-        } else {
-            System.out.println("Não existe categoria para este lancamento");
-            return ResponseEntity.badRequest().build();
-        }
-        public ResponseEntity<Lancamento> criarlancamento(Lancamento lancamento) {
-            lancamentoRepository.save(lancamento);
-            return ResponseEntity.ok().body(lancamento);
-        }
-        public void deletaLancamento(@PathVariable(value = "id") long id) {
-            lancamentoRepository.deleteById(id);
-        }
-        public Lancamento atualizarLancamento(@RequestBody Lancamento lancamento, @PathVariable(value="id") long id){
-            Lancamento lancamentoEdita = lancamentoRepository.findById(id)
-                    .orElseThrow();
-            lancamentoEdita.setName(lancamento.getName());
-            lancamentoEdita.setDescription(lancamento.getDescription());
-            lancamentoEdita.setType(lancamento.getType());
-            lancamentoEdita.setDate(lancamento.getDate());
-            lancamentoEdita.setAmount(lancamento.getAmount());
-            lancamentoEdita.setPaid(lancamento.isPaid());
-            lancamentoEdita.setCategoryId(lancamento.getCategoryId());
-            return lancamentoRepository.save(lancamentoEdita);
-        }
+    private boolean validateEntryById(Long categoryid) {
+        return true;
     }
 
+    public ResponseEntity<Lancamento> criarLancamento(Lancamento lancamento) {
+        if (validateEntryById(lancamento.getCategoryId())) {
+            return ResponseEntity.ok(lancamentoRepository.save(lancamento));
+        }
+        System.out.println("Não existe categoria para este lancamento");
+        return ResponseEntity.badRequest().build();
+    }
+
+    public ResponseEntity<Lancamento> gerarlancamento(Lancamento lancamento) {
+        lancamentoRepository.save(lancamento);
+        return ResponseEntity.ok().body(lancamento);
+    }
+
+    public void lancamentoDeletar(long id) {
+        lancamentoRepository.deleteById(id);
+    }
+
+    public Lancamento atualizaLancamento(Lancamento lancamento, long id) {
+        Lancamento lancamentoEdita = lancamentoRepository.findById(id)
+                .orElseThrow();
+        lancamentoEdita.setName(lancamento.getName());
+        lancamentoEdita.setDescription(lancamento.getDescription());
+        lancamentoEdita.setType(lancamento.getType());
+        lancamentoEdita.setDate(lancamento.getDate());
+        lancamentoEdita.setAmount(lancamento.getAmount());
+        lancamentoEdita.setPaid(lancamento.isPaid());
+        lancamentoEdita.setCategoryId(lancamento.getCategoryId());
+        return lancamentoRepository.save(lancamentoEdita);
+    }
 
 }
+
+
+
+
+
+
+
 
 
