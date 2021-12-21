@@ -13,4 +13,5 @@ Desafio 5
 a)	Entity é usado para informar que uma classe também é uma entidade, com isso a JPA estabelece a ligação entre a entidade e uma tabela de mesmo nome no banco de dados.
 Controller é a camada intermediaria entre a camada de apresentação (View) e a camada de negócio (Model), assim toda requisição criada pelo usuário passa pelo controller e o mesmo se comunica com o model.
 Repository é um objeto que isola os objetos ou entidades do domínio do código que acessa o banco.
+Service é a camada onde a lógica do programa é encapsulada.
 
