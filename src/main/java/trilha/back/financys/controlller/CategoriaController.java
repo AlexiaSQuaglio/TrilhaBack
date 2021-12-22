@@ -2,12 +2,14 @@ package trilha.back.financys.controlller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import trilha.back.financys.entities.Categoria;
+import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.service.CategoriaService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,42 +17,55 @@ import java.util.Optional;
 public class CategoriaController {
 
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 
 	@Autowired
-	CategoriaService categoriaService;
+	private CategoriaService categoriaService;
 
 
 	@GetMapping
-	public ResponseEntity<Object> getCategoria() {
-		return ResponseEntity.ok(categoriaService.listarCategoria());
+	public ResponseEntity findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.findAll());
 	}
 
 
 	@GetMapping(path = "/{id}")
-	public Optional<Categoria> listaCategoriaId (@PathVariable(value="id") long id){
-		return categoriaRepository.findById(id);
+	public ResponseEntity findById(@PathVariable Long id) {
+		Optional<CategoriaEntity> result = categoriaRepository.findById(id);
+		if (result.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria não encontrada");
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+		}
 	}
 
-    @PostMapping
-	public ResponseEntity<Categoria> criarCategoria(@RequestBody Categoria categoria) {
-		return categoriaService.criarCategoria(categoria);
+	@PostMapping
+	public ResponseEntity criarCategoria(@RequestBody CategoriaEntity categoria) {
+		return categoriaService.idCategoriabyName(categoria.getName()) > 0 ?
+				ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria nao encontrada"):
+				ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
 	}
 
 
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Object> categoriaDeletar(@PathVariable("id") Long id) {
-		categoriaService.deletaCategoria(id);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity categoriaDeletar(@PathVariable("id") Long id) {
+		categoriaRepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Categoria nao encontrada");
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Object> atualiza(@PathVariable("id") Long id, @RequestBody Categoria categoria) {
-		categoriaService.atualizaCategoria(categoria, id);
-		return ResponseEntity.ok(categoria);
+	public ResponseEntity atualizaCategoria(CategoriaEntity categoria, Long id) {
+		try {
+			CategoriaEntity categoriaEdita = categoriaRepository.findById(id)
+					.orElseThrow();
+			categoriaEdita.setName(categoria.getName());
+			categoriaEdita.setDescription(categoria.getDescription());
+			return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(categoriaEdita));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Categoria nao foi encontrada");
+		}
 
 	}
-
-	}
+}
 
 

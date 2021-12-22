@@ -5,23 +5,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Lancamento<Date> implements Comparable<Lancamento>
-{
+public class LancamentoEntity implements Serializable, Comparable<LancamentoEntity>{
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private Long categoryId;
 	private String name;
 	private String description;
 	private String amount;
-	private String date;
+	private Date date;
 	private String type;
 	private boolean paid;
+
+	public LancamentoEntity() { }
 	
-	public Lancamento(long id, Long categoryId, String name, String description, String amount,
-					  String date, String type, boolean paid) {
+	public LancamentoEntity(Long id, Long categoryId, String name, String description, String amount,
+							Date date, String type, boolean paid) {
 			this.id = id;
 			this.categoryId = categoryId; 
 			this.name = name;
@@ -31,8 +36,12 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 			this.type = type;
 			this.paid = paid;
 		}
+	@Override
+	public int compareTo(LancamentoEntity outroLancamento) {
+		return this.date.compareTo(outroLancamento.getDate());
+	}
 		
-		public Lancamento() { }
+
 		public boolean isPaid() {
 			return paid;
 		}
@@ -41,11 +50,11 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 			this.paid = paid;
 		}
 
-		public long getId() {
+		public Long getId() {
 			return id;
 		}
 
-		public void setId(long id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 		
@@ -61,11 +70,9 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 			return name;
 		}
 
-
 		public void setName(String name) {
 			this.name = name;
 		}
-
 
 		public String getDescription() {
 			return description;
@@ -74,22 +81,20 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		
 
 		public String getAmount() {
 			return amount;
 		}
 
-
 		public void setAmount(String amount) {
 			this.amount = amount;
 		}
 		
-		public String getDate() {
+		public Date getDate() {
 			return date;
 		}
 
-		public void setDate(String date) {
+		public void setDate(Date date) {
 			this.date = date;
 		}
 		
@@ -101,9 +106,6 @@ public class Lancamento<Date> implements Comparable<Lancamento>
 		}
 
 
-		@Override
-	public int compareTo(Lancamento outroLancamento) {
-		return this.date.compareTo(outroLancamento.getDate());
-	}
+
 
 }

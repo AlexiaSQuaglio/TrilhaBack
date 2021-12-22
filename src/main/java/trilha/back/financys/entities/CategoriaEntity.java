@@ -7,23 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Categoria {
+public class CategoriaEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
 	private String name;
 
 	private String description;
 	
-	public Categoria(long id, String name, String description) {
+	public CategoriaEntity(Long id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		
 	}
 	
-	public Categoria() { }
+	public CategoriaEntity() { }
 
 	public Long getId() {
 		return id;

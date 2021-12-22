@@ -1,46 +1,21 @@
 package trilha.back.financys.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.financys.entities.Categoria;
-import trilha.back.financys.exceptions.CategoriaNotFound;
+import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.ArrayList;
+
 
 @Service
 public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
 
+public long idCategoriabyName(String categoriaName){
+    ArrayList<CategoriaEntity> result = categoriaRepository.findByName(categoriaName);
+    return result.isEmpty() ? 0 : result.get(0).getId();
+}
 
-    public List<Categoria> listarCategoria() {
-        return categoriaRepository.findAll();
-    }
-
-    public Categoria getCategoriaById(long id) {
-        Optional<Categoria> listaCategoriaId = categoriaRepository.findById(id);
-            if (listaCategoriaId.isEmpty()) {
-                throw new CategoriaNotFound(String.format("Categoria nao encontrada", id));
-            }
-            return listaCategoriaId.get();
-    }
-
-    public ResponseEntity<Categoria> criarCategoria( Categoria categoria) {
-        categoriaRepository.save(categoria);
-        return ResponseEntity.ok().body(categoria);
-    }
-
-    public void deletaCategoria(long id) {
-        categoriaRepository.deleteById(id);
-    }
-    public Categoria atualizaCategoria(Categoria categoria, long id){
-        Categoria categoriaEdita = categoriaRepository.findById(id)
-                .orElseThrow();
-        categoriaEdita.setName(categoria.getName());
-        categoriaEdita.setDescription(categoria.getDescription());
-        return categoriaRepository.save(categoriaEdita);
-    }
 }
