@@ -2,13 +2,14 @@ package trilha.back.financys.controlller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import trilha.back.financys.entities.CategoriaEntity;
+import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.service.LancamentoService;
 
@@ -18,42 +19,43 @@ import trilha.back.financys.service.LancamentoService;
 public class LancamentoController {
 
 	@Autowired
+	private ModelMapper mapper;
+
+	@Autowired
 	private LancamentoService lancamentoService;
 
 
 	@GetMapping(value = "/listar")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<LancamentoEntity>> getAll() {
-		return ResponseEntity.ok().body(lancamentoService.getAll());
-	}
+		public List<LancamentoDTO> getAll() {
+			return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
+		}
 
 	@GetMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity <LancamentoEntity>findById(@PathVariable Long id) {
-		LancamentoEntity teste = lancamentoService.findById(id);
-		if (teste != null)
-			return ResponseEntity.ok(teste);
-		return ResponseEntity.noContent().build();
-	}
+		return ResponseEntity.ok().body(lancamentoService.findById(id));
+			}
 
-	@PostMapping (path = "/{id}")
+	@PostMapping (path = "/criar")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<LancamentoEntity>criarLancamento(@RequestBody LancamentoEntity lancamento) {
-		return lancamentoService.criarLancamento(lancamento);
+		return ResponseEntity.ok().body(lancamentoService.criarLancamento(lancamento));
 	}
 
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<LancamentoEntity> lancamentoDeletar(@PathVariable("id") Long id) {
-		LancamentoEntity delete = lancamentoService.lancamentoDeletar(id);
-		if (delete != null)
-			return ResponseEntity.ok(delete);
-		return ResponseEntity.noContent().build();
+	@DeleteMapping(path = "/deletar")
+	public void lancamentoDeletar(@PathVariable("id") Long id) {
+		lancamentoService.lancamentoDeletar(id);
 	}
 
 
-	@PutMapping(path = "/{id}")
-	public ResponseEntity <LancamentoEntity>atualizaLancamento(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
-		lancamentoService.atualizaLancamento(lancamento,id);
-		return ResponseEntity.ok(lancamento);
+	@PutMapping(path = "/update")
+	public void atualizaLancamento(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
+		lancamentoService.atualizaLancamento(lancamento, id);
 	}
+	@GetMapping ( path = " / dto" )
+	public ResponseEntity<List<LancamentoDTO>>listByCategoria(){
+		return ResponseEntity.ok(lancamentoService.listByCategoria());
+	}
+
 }

@@ -1,55 +1,63 @@
 package trilha.back.financys.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trilha.back.financys.dto.CategoriaDTO;
 import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
+    @Autowired
+    ModelMapper mapper;
 
-    public List<CategoriaEntity> getAll() {
-        return new ArrayList<>(categoriaRepository.findAll());
+    public CategoriaService(CategoriaRepository categoriaRepository, ModelMapper mapper) {
+        this.categoriaRepository = categoriaRepository;
+        this.mapper = mapper;
+    }
+    public List<CategoriaDTO> getAll() {
+        return   categoriaRepository
+                .findAll()
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+           }
+
+
+
+    public CategoriaEntity findById(Long id) {
+       return categoriaRepository.getById(id);
     }
 
-    public  CategoriaEntity findById(Long id) {
-        Optional<CategoriaEntity> result = categoriaRepository.findById(id);
-        if (result.isPresent())
-            return result.get();
-       return null;
-    }
+    public void atualizaCategoria(CategoriaEntity categoria, Long id) {
 
-    public CategoriaEntity atualizaCategoria(CategoriaEntity categoria, Long id) {
-        try {
             CategoriaEntity categoriaEdita = categoriaRepository.findById(id)
                     .orElseThrow();
             categoriaEdita.setName(categoria.getName());
             categoriaEdita.setDescription(categoria.getDescription());
-            return categoriaRepository.save(categoriaEdita);
-        } catch (Exception e) {
-            return null;
-        }
+            ResponseEntity.ok().body(categoriaRepository.save(categoriaEdita));
+
     }
-        public CategoriaEntity categoriaDeletar(Long id){
-        CategoriaEntity categoria = categoriaRepository.getById(id);
-        if (id != null)
-        categoriaRepository.deleteById(id);
-        return null;
+        public void categoriaDeletar(Long id){
+             categoriaRepository.deleteById(id);
         }
 
-        public ResponseEntity<CategoriaEntity>criarCategoria(CategoriaEntity categoriaEntity){
-        if (categoriaEntity != null)
-        categoriaRepository.save(categoriaEntity);
-        return null;
+        public CategoriaEntity criarCategoria(CategoriaEntity categoriaEntity){
+             return categoriaRepository.save(categoriaEntity);
         }
+    private CategoriaDTO  mapToDto(CategoriaEntity categoria) {
+        return mapper.map(categoria,CategoriaDTO.class );
+    }
+    private CategoriaEntity  mapToEntity(CategoriaDTO dto) {
+        return mapper.map(dto,CategoriaEntity.class );
+    }
 
 }
