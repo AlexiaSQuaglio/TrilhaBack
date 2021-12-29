@@ -53,7 +53,7 @@ public class LancamentoController {
 	public void atualizaLancamento(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
-	@GetMapping ( path = " / dto" )
+	@GetMapping ( path = "/dto" )
 	public ResponseEntity<List<LancamentoDTO>>listByCategoria(){
 		return ResponseEntity.ok(lancamentoService.listByCategoria());
 	}

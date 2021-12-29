@@ -69,11 +69,16 @@ public class LancamentoService {
         List<LancamentoDTO> lancamentoRetorno = new ArrayList<LancamentoDTO>();
         for (var i = 0; i < lancamentoAnterior.size(); i++) {
             LancamentoDTO item = lancamentoAnterior.get(i);
-            if (item.getCategoryId().equals(null)){
+            if (lancamentoAnterior.contains(item.getCategoryId()) ){
+                lancamentoRetorno = lancamentoAnterior;
                 return lancamentoRetorno;
+        }
+            else{
+                lancamentoAnterior.add();
             }
         }
-        return lancamentoAnterior;
+
+        return lancamentoRetorno;
     }
 }
 
