@@ -70,11 +70,10 @@ public class LancamentoService {
         for (var i = 0; i < lancamentoAnterior.size(); i++) {
             LancamentoDTO item = lancamentoAnterior.get(i);
             if (lancamentoAnterior.contains(item.getCategoryId()) ){
-                lancamentoRetorno = lancamentoAnterior;
-                return lancamentoRetorno;
+                return lancamentoAnterior;
         }
             else{
-                lancamentoAnterior.add();
+                lancamentoAnterior.add(item);
             }
         }
 
