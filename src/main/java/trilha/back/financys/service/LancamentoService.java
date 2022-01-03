@@ -8,9 +8,8 @@ import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.LancamentoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -26,15 +25,19 @@ public class LancamentoService {
         this.lancamentoRepository = lancamentoRepository;
         this.mapper = mapper;
     }
-    public List<LancamentoDTO> getAll() {
-        return  lancamentoRepository
-                .findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+
+    public List<LancamentoEntity> getAll() {
+        return ResponseEntity.ok().body(lancamentoRepository.findAll()).getBody();
     }
-    public LancamentoEntity findById(Long id) {
-        return lancamentoRepository.getById(id);
+
+    public LancamentoEntity getId(Long id) {
+       Optional<LancamentoEntity> requestedLancamento = lancamentoRepository.findById(id);
+       if (requestedLancamento.isPresent()){
+           lancamentoRepository.getById(id);
+       }else{
+           System.out.println("id nao encontrado");
+       }
+       return lancamentoRepository.getById(id);
     }
 
     public void atualizaLancamento(LancamentoEntity lancamento, Long id) {
@@ -55,29 +58,16 @@ public class LancamentoService {
         lancamentoRepository.deleteById(id);
     }
 
-    public LancamentoEntity criarLancamento(LancamentoEntity lancamentoEntity) {
+    public LancamentoEntity salvar(LancamentoEntity lancamentoEntity) {
         return lancamentoRepository.save(lancamentoEntity);
     }
-    private LancamentoDTO mapToDto(LancamentoEntity lancamento) {
-        return mapper.map(lancamento,LancamentoDTO.class );
-    }
-    private LancamentoEntity mapToEntity(LancamentoDTO dto) {
+
+    private LancamentoEntity mapToDto(LancamentoDTO dto) {
         return mapper.map(dto,LancamentoEntity.class );
     }
-    public List <LancamentoDTO> listByCategoria () {
-        List<LancamentoDTO> lancamentoAnterior = getAll();
-        List<LancamentoDTO> lancamentoRetorno = new ArrayList<LancamentoDTO>();
-        for (var i = 0; i < lancamentoAnterior.size(); i++) {
-            LancamentoDTO item = lancamentoAnterior.get(i);
-            if (lancamentoAnterior.contains(item.getCategoryId()) ){
-                return lancamentoAnterior;
-        }
-            else{
-                lancamentoAnterior.add(item);
-            }
-        }
 
-        return lancamentoRetorno;
+    private LancamentoDTO mapToEntity(LancamentoEntity entity) {
+        return mapper.map(entity,LancamentoDTO.class );
     }
 }
 

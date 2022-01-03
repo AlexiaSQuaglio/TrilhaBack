@@ -27,35 +27,29 @@ public class LancamentoController {
 
 	@GetMapping(value = "/listar")
 	@ResponseStatus(HttpStatus.OK)
-		public List<LancamentoDTO> getAll() {
+		public List<LancamentoEntity> getAll() {
 			return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
 		}
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/buscar/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity <LancamentoEntity>findById(@PathVariable Long id) {
-		return ResponseEntity.ok().body(lancamentoService.findById(id));
+	public ResponseEntity <LancamentoEntity>getId(@PathVariable("id") Long id) {
+		return ResponseEntity.ok().body(lancamentoService.getId(id));
 			}
 
-	@PostMapping (path = "/criar")
+	@PostMapping (path = "/salvar")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<LancamentoEntity>criarLancamento(@RequestBody LancamentoEntity lancamento) {
-		return ResponseEntity.ok().body(lancamentoService.criarLancamento(lancamento));
+	public ResponseEntity<LancamentoEntity>salvar(@RequestBody LancamentoEntity lancamento) {
+		return ResponseEntity.ok().body(lancamentoService.salvar(lancamento));
 	}
 
-	@DeleteMapping(path = "/deletar")
-	public void lancamentoDeletar(@PathVariable("id") Long id) {
+	@DeleteMapping(path = "/deletar/{id}")
+	public void delete(@PathVariable("id") Long id) {
 		lancamentoService.lancamentoDeletar(id);
 	}
 
-
-	@PutMapping(path = "/update")
-	public void atualizaLancamento(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
+	@PutMapping(path = "/update/{id}")
+	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
-	@GetMapping ( path = "/dto" )
-	public ResponseEntity<List<LancamentoDTO>>listByCategoria(){
-		return ResponseEntity.ok(lancamentoService.listByCategoria());
-	}
-
 }

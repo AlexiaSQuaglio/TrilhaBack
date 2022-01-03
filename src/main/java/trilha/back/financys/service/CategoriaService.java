@@ -9,7 +9,7 @@ import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -23,18 +23,17 @@ public class CategoriaService {
         this.categoriaRepository = categoriaRepository;
         this.mapper = mapper;
     }
-    public List<CategoriaDTO> getAll() {
-        return   categoriaRepository
-                .findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
-           }
+    public List<CategoriaEntity> getAll() {
+        return ResponseEntity.ok().body(categoriaRepository.findAll()).getBody();
+    }
 
-
-
-    public CategoriaEntity findById(Long id) {
-       return categoriaRepository.getById(id);
+    public CategoriaEntity getId(Long id) {
+        Optional<CategoriaEntity> requestedCategoria = categoriaRepository.findById(id);
+        if (requestedCategoria.isPresent()){
+        }else{
+            System.out.println("id nao encontrado");
+        }
+        return categoriaRepository.getById(id);
     }
 
     public void atualizaCategoria(CategoriaEntity categoria, Long id) {
@@ -50,14 +49,15 @@ public class CategoriaService {
              categoriaRepository.deleteById(id);
         }
 
-        public CategoriaEntity criarCategoria(CategoriaEntity categoriaEntity){
+        public CategoriaEntity salvar(CategoriaEntity categoriaEntity){
              return categoriaRepository.save(categoriaEntity);
         }
-    private CategoriaDTO  mapToDto(CategoriaEntity categoria) {
-        return mapper.map(categoria,CategoriaDTO.class );
+
+    private CategoriaEntity  mapToDto(CategoriaDTO dto) {
+        return mapper.map(dto,CategoriaEntity.class);
     }
-    private CategoriaEntity  mapToEntity(CategoriaDTO dto) {
-        return mapper.map(dto,CategoriaEntity.class );
+    private CategoriaDTO  mapToEntity(CategoriaEntity entity) {
+        return mapper.map(entity,CategoriaDTO.class);
     }
 
 }

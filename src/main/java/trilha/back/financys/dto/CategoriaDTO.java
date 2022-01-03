@@ -2,6 +2,7 @@ package trilha.back.financys.dto;
 
 import lombok.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
