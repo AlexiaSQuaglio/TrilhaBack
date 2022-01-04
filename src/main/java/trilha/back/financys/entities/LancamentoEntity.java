@@ -26,7 +26,10 @@ public class LancamentoEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private Long categoryId;
+
+	@ManyToOne
+	@JoinColumn(name = "categoriaId")
+	private CategoriaEntity categoryId;
 
 	@NotBlank(message = "O nome nao pode ser nulo")
 	@Length(min = 3, max = 45, message = "o nome deve ter no minimo{min} e o maximo{max} de caracteres")
@@ -36,9 +39,9 @@ public class LancamentoEntity implements Serializable{
 	@Length(min = 15, max = 150, message = "a descricao deve ter no minimo{min} e o maximo{max} de caracteres")
 	private String description;
 
-	@NotNull(message = "Montante nao pode ser nulo")
+	@NotNull(message = "Amount nao pode ser nulo")
 	@Min(value = 0, message = "valor deve ser maior que 0")
-	private String amount;
+	private double amount;
 
 	@NotBlank(message = "A data nao pode ser nulo")
 	private String date;

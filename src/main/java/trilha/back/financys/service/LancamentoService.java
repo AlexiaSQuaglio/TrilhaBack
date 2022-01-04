@@ -4,10 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.dto.LancamentoDTO;
+import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.entities.LancamentoEntity;
+import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,10 @@ public class LancamentoService {
 
     @Autowired
     private LancamentoRepository lancamentoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Autowired
     ModelMapper mapper;
 
@@ -62,6 +70,7 @@ public class LancamentoService {
         return lancamentoRepository.save(lancamentoEntity);
     }
 
+
     private LancamentoEntity mapToDto(LancamentoDTO dto) {
         return mapper.map(dto,LancamentoEntity.class );
     }
@@ -69,6 +78,28 @@ public class LancamentoService {
     private LancamentoDTO mapToEntity(LancamentoEntity entity) {
         return mapper.map(entity,LancamentoDTO.class );
     }
+
+    public List<ChartDTO> returnDTO() {
+        List<LancamentoEntity> lancamentoEntityList = lancamentoRepository.findAll();
+        List<ChartDTO> dtoList = new ArrayList<>();
+        lancamentoEntityList.forEach(lancamentoEntity ->
+                dtoList.stream().filter(item -> item.getName().equals(lancamentoEntity.getName())).findAny()
+                        .ifPresentOrElse(
+                                item -> {
+                                    item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
+                                },
+                                () -> {
+                                    dtoList.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
+                                }
+                        ));
+        return dtoList;
+    }
+
+
+
+
+
+
 }
 
 

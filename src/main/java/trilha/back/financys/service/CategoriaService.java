@@ -53,6 +53,7 @@ public class CategoriaService {
              return categoriaRepository.save(categoriaEntity);
         }
 
+
     private CategoriaEntity  mapToDto(CategoriaDTO dto) {
         return mapper.map(dto,CategoriaEntity.class);
     }

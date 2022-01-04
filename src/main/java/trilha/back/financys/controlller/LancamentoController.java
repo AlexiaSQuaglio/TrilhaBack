@@ -1,17 +1,14 @@
 package trilha.back.financys.controlller;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.service.LancamentoService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping (path = "/lancamentos")
@@ -51,5 +48,9 @@ public class LancamentoController {
 	@PutMapping(path = "/update/{id}")
 	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
+	}
+	@GetMapping
+	public ResponseEntity<LancamentoEntity>returnDTO(){
+		return ResponseEntity.ok(lancamentoService.returnDTO());
 	}
 }

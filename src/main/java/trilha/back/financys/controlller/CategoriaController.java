@@ -1,14 +1,10 @@
 package trilha.back.financys.controlller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import trilha.back.financys.dto.CategoriaDTO;
 import trilha.back.financys.entities.CategoriaEntity;
-import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.service.CategoriaService;
 
 import javax.validation.Valid;
