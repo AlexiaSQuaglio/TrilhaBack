@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.service.LancamentoService;
 
@@ -50,7 +51,7 @@ public class LancamentoController {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
 	@GetMapping
-	public ResponseEntity<LancamentoEntity>returnDTO(){
-		return ResponseEntity.ok(lancamentoService.returnDTO());
+	public ResponseEntity<List<ChartDTO>> returnDTO(){
+		return ResponseEntity.ok(lancamentoService.returnDTO()).getBody();
 	}
 }

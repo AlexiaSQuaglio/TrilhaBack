@@ -79,7 +79,7 @@ public class LancamentoService {
         return mapper.map(entity,LancamentoDTO.class );
     }
 
-    public List<ChartDTO> returnDTO() {
+    public ResponseEntity<List<ChartDTO>> returnDTO() {
         List<LancamentoEntity> lancamentoEntityList = lancamentoRepository.findAll();
         List<ChartDTO> dtoList = new ArrayList<>();
         lancamentoEntityList.forEach(lancamentoEntity ->
@@ -92,7 +92,7 @@ public class LancamentoService {
                                     dtoList.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
                                 }
                         ));
-        return dtoList;
+        return (ResponseEntity<List<ChartDTO>>) dtoList;
     }
 
 
