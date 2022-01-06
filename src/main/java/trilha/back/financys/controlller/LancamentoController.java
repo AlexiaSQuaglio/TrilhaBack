@@ -54,8 +54,9 @@ public class LancamentoController {
 	public ResponseEntity<List<ChartDTO>> returnDTO(){
 		return ResponseEntity.ok(lancamentoService.returnDTO()).getBody();
 	}
+
 	@GetMapping(path = "/calcula")
-	public ResponseEntity<Integer>calcula(@PathVariable Integer x,@PathVariable Integer y ){
+	public ResponseEntity<Integer>calculo(@PathVariable Integer x,@PathVariable Integer y ){
 		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
 	}
 }
