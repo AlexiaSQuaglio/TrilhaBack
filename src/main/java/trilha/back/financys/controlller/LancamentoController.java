@@ -50,8 +50,12 @@ public class LancamentoController {
 	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
-	@GetMapping
+	@GetMapping(path = "/dto")
 	public ResponseEntity<List<ChartDTO>> returnDTO(){
 		return ResponseEntity.ok(lancamentoService.returnDTO()).getBody();
+	}
+	@GetMapping(path = "/calcula")
+	public ResponseEntity<Integer>calcula(@PathVariable Integer x,@PathVariable Integer y ){
+		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
 	}
 }

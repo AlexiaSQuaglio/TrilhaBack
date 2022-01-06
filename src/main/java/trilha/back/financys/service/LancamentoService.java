@@ -8,6 +8,7 @@ import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.entities.LancamentoEntity;
+import trilha.back.financys.exception.DivisaoPorZeroException;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
@@ -96,7 +97,14 @@ public class LancamentoService {
     }
 
 
-
+   public Integer calculaMedia(Integer x, Integer y){
+      try {
+          return (x/y);
+      }
+       catch (ArithmeticException e){
+          throw new DivisaoPorZeroException("Erro ao dividir por 0");
+       }
+    }
 
 
 
