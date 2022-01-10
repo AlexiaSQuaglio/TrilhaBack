@@ -80,20 +80,16 @@ public class LancamentoService {
         return mapper.map(entity,LancamentoDTO.class );
     }
 
-    public ResponseEntity<List<ChartDTO>> returnDTO() {
+    public void returnDTO() {
         List<LancamentoEntity> lancamentoEntityList = lancamentoRepository.findAll();
         List<ChartDTO> dtoList = new ArrayList<>();
-        lancamentoEntityList.forEach(lancamentoEntity ->
-                dtoList.stream().filter(item -> item.getName().equals(lancamentoEntity.getName())).findAny()
-                        .ifPresentOrElse(
-                                item -> {
-                                    item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
-                                },
-                                () -> {
-                                    dtoList.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
-                                }
-                        ));
-        return (ResponseEntity<List<ChartDTO>>) dtoList;
+        for (LancamentoEntity l:
+                lancamentoEntityList) {
+            CategoriaEntity categoria = categoriaRepository.findById(l.getCategoryId()).orElseThrow();
+            ChartDTO dto = new ChartDTO();
+            dto.setName(categoria.getName());
+            dto.setType(l.getType());
+        }
     }
 
 
