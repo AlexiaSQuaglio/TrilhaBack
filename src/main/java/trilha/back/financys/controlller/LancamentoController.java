@@ -50,7 +50,10 @@ public class LancamentoController {
 	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
-
+	@GetMapping(path = "/grafico")
+	public ResponseEntity<List<ChartDTO>>grafico(){
+		return ResponseEntity.ok(lancamentoService.grafico());
+	}
 
 	@GetMapping(path = "/calcula")
 	public ResponseEntity<Integer>calculo(@PathVariable Integer x,@PathVariable Integer y ){
