@@ -8,6 +8,7 @@ import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.entities.LancamentoEntity;
+import trilha.back.financys.exception.DivisaoPorZeroException;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
@@ -79,24 +80,30 @@ public class LancamentoService {
         return mapper.map(entity,LancamentoDTO.class );
     }
 
-    public ResponseEntity<List<ChartDTO>> returnDTO() {
-        List<LancamentoEntity> lancamentoEntityList = lancamentoRepository.findAll();
-        List<ChartDTO> dtoList = new ArrayList<>();
-        lancamentoEntityList.forEach(lancamentoEntity ->
-                dtoList.stream().filter(item -> item.getName().equals(lancamentoEntity.getName())).findAny()
-                        .ifPresentOrElse(
-                                item -> {
-                                    item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
-                                },
-                                () -> {
-                                    dtoList.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
-                                }
-                        ));
-        return (ResponseEntity<List<ChartDTO>>) dtoList;
+public List<ChartDTO> grafico(){
+        List<ChartDTO> lists = new ArrayList<>();
+        categoriaRepository.findAll().stream()
+                .forEach(categoria -> {
+                    ChartDTO chartDTO = new ChartDTO();
+                    chartDTO.setName(categoria.getName());
+                    chartDTO.setTotal(0.0);
+                    categoria.getLancamento().forEach(lancamentoEntity -> {
+                        chartDTO.setTotal(lancamentoEntity.getAmount() + chartDTO.getTotal());
+                    });
+                    lists.add(chartDTO);
+                });
+        return lists;
+}
+
+
+   public Integer calculaMedia(Integer x, Integer y){
+      try {
+          return (x/y);
+      }
+       catch (ArithmeticException e){
+          throw new DivisaoPorZeroException("Erro ao dividir por 0");
+       }
     }
-
-
-
 
 
 
