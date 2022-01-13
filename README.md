@@ -9,6 +9,7 @@ Web API é uma interface de programação de aplicações tanto para um servidor
 b) Obter - requisição por onde nós pedimos a representação de um recurso, por exemplo, html, xml, json e etc .; Pós - método utilizado quando desejamos criar um recurso; Put - método que requisita que um recurso seja guardado no URI previsto e se o recurso já existe o mesmo será atualizado; Excluir - exclui recursos associados; Trace - Devolve a mesma requisição que for enviada tanto se houver mudança e também se houver adição feita por servidores intermediários; Opções - retorna os métodos HTTP permitidos pelo servidor para um URL; Patch - usado para editar o recurso sem necessidade e enviar todos os atributos
 
 
+
 Desafio 9
 a)	Design Patterns (Padrões de Projetos) são soluções para problemas comuns encontrados no desenvolvimento ou na manutenção de softwares orientação a objeto.
 
@@ -24,3 +25,4 @@ L: LSP (Princípio da Substituição de Liskov) – As classes base devem ser su
 I: ISP (Princípio de Segregação de Interface) – Muitas interfaces especificas são melhores do que uma interface única
 D: DIP (Princípio de inversão da dependência) – Dependa de uma abstração e não de uma implementação.
 h) Foi utilizado até o momento o OCP(Open/Closed principle), LSP(Liskov Substitution Principle), ISP(Interface Segregation Principle)
+
