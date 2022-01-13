@@ -1,20 +1,15 @@
 package trilha.back.financys.controlller;
 
-
-import java.util.List;
-import java.util.Optional;
-
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import trilha.back.financys.entities.Categoria;
-import trilha.back.financys.entities.Lancamento;
-import trilha.back.financys.repository.LancamentoRepository;
-import trilha.back.financys.service.CategoriaService;
+import trilha.back.financys.dto.ChartDTO;
+import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.service.LancamentoService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping (path = "/lancamentos")
@@ -22,36 +17,46 @@ import trilha.back.financys.service.LancamentoService;
 public class LancamentoController {
 
 	@Autowired
+	private ModelMapper mapper;
+
+	@Autowired
 	private LancamentoService lancamentoService;
 
-	@GetMapping
-	public ResponseEntity<Object> getLancamento(){
-		return ResponseEntity.ok(lancamentoService.listarLancamento());
+
+	@GetMapping(value = "/listar")
+	@ResponseStatus(HttpStatus.OK)
+		public List<LancamentoEntity> getAll() {
+			return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
+		}
+
+	@GetMapping(path = "/buscar/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity <LancamentoEntity>getId(@PathVariable("id") Long id) {
+		return ResponseEntity.ok().body(lancamentoService.getId(id));
+			}
+
+	@PostMapping (path = "/salvar")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<LancamentoEntity>salvar(@RequestBody LancamentoEntity lancamento) {
+		return ResponseEntity.ok().body(lancamentoService.salvar(lancamento));
 	}
 
-	@GetMapping(path = "/{id}")
-	public ResponseEntity<Lancamento> validateCategoryById(@PathVariable Long id) {
-		return ResponseEntity.ok(lancamentoService.criarLancamento());
-	}
-
-	@PostMapping
-	public ResponseEntity<Lancamento> criarLancamento(@RequestBody Lancamento lancamento) {
-		return lancamentoService.criarLancamento(lancamento);
-	}
-
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Object> lancamentoDeletar(@PathVariable("id") Long id) {
+	@DeleteMapping(path = "/deletar/{id}")
+	public void delete(@PathVariable("id") Long id) {
 		lancamentoService.lancamentoDeletar(id);
-		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping(path = "/{id}")
-	public ResponseEntity<Object> atualiza(@PathVariable("id") Long id, @RequestBody Lancamento lancamento) {
+	@PutMapping(path = "/update/{id}")
+	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
-		return ResponseEntity.ok(lancamento);
-
+	}
+	@GetMapping(path = "/grafico")
+	public ResponseEntity<List<ChartDTO>>grafico(){
+		return ResponseEntity.ok(lancamentoService.grafico());
 	}
 
-
-
+	@GetMapping(path = "/calcula")
+	public ResponseEntity<Integer>calculo(@PathVariable Integer x,@PathVariable Integer y ){
+		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
+	}
 }

@@ -1,48 +1,64 @@
 package trilha.back.financys.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import trilha.back.financys.entities.Categoria;
-import trilha.back.financys.exceptions.CategoriaNotFound;
+import trilha.back.financys.dto.CategoriaDTO;
+import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
+    @Autowired
+    ModelMapper mapper;
 
-
-    public List<Categoria> listarCategoria() {
-        return categoriaRepository.findAll();
+    public CategoriaService(CategoriaRepository categoriaRepository, ModelMapper mapper) {
+        this.categoriaRepository = categoriaRepository;
+        this.mapper = mapper;
+    }
+    public List<CategoriaEntity> getAll() {
+        return ResponseEntity.ok().body(categoriaRepository.findAll()).getBody();
     }
 
-    public Categoria getCategoriaById(long id) {
-        Optional<Categoria> listaCategoriaId = categoriaRepository.findById(id);
-            if (listaCategoriaId.isEmpty()) {
-                throw new CategoriaNotFound(String.format("Categoria nao encontrada", id));
-            }
-            return listaCategoriaId.get();
+    public CategoriaEntity getId(Long id) {
+        Optional<CategoriaEntity> requestedCategoria = categoriaRepository.findById(id);
+        if (requestedCategoria.isPresent()){
+        }else{
+            System.out.println("id nao encontrado");
+        }
+        return categoriaRepository.getById(id);
     }
 
-    public ResponseEntity<Categoria> criarCategoria( Categoria categoria) {
-        categoriaRepository.save(categoria);
-        return ResponseEntity.ok().body(categoria);
+    public void atualizaCategoria(CategoriaEntity categoria, Long id) {
+
+            CategoriaEntity categoriaEdita = categoriaRepository.findById(id)
+                    .orElseThrow();
+            categoriaEdita.setName(categoria.getName());
+            categoriaEdita.setDescription(categoria.getDescription());
+            ResponseEntity.ok().body(categoriaRepository.save(categoriaEdita));
+
+    }
+        public void categoriaDeletar(Long id){
+             categoriaRepository.deleteById(id);
+        }
+
+        public CategoriaEntity salvar(CategoriaEntity categoriaEntity){
+             return categoriaRepository.save(categoriaEntity);
+        }
+
+
+    private CategoriaEntity  mapToDto(CategoriaDTO dto) {
+        return mapper.map(dto,CategoriaEntity.class);
+    }
+    private CategoriaDTO  mapToEntity(CategoriaEntity entity) {
+        return mapper.map(entity,CategoriaDTO.class);
     }
 
-    public void deletaCategoria(@PathVariable(value = "id") long id) {
-        categoriaRepository.deleteById(id);
-    }
-    public Categoria atualizaCategoria(@RequestBody Categoria categoria, @PathVariable(value="id") long id){
-        Categoria categoriaEdita = categoriaRepository.findById(id)
-                .orElseThrow();
-        categoriaEdita.setName(categoria.getName());
-        categoriaEdita.setDescription(categoria.getDescription());
-        return categoriaRepository.save(categoriaEdita);
-    }
 }
