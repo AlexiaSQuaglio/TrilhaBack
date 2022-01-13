@@ -1,4 +1,4 @@
-package trilha.back.financys.dominio.entities;
+package trilha.back.financys.application.entities;
 
 
 import lombok.AllArgsConstructor;

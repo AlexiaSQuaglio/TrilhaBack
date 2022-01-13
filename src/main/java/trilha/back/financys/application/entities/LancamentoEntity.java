@@ -1,10 +1,10 @@
-package trilha.back.financys.dominio.entities;
+package trilha.back.financys.application.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import trilha.back.financys.enums.TypeEnum;
+import trilha.back.financys.application.enums.TypeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

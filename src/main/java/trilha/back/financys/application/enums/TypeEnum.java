@@ -1,4 +1,4 @@
-package trilha.back.financys.enums;
+package trilha.back.financys.application.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

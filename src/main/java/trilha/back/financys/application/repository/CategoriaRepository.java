@@ -1,8 +1,8 @@
-package trilha.back.financys.repository;
+package trilha.back.financys.application.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import trilha.back.financys.dominio.entities.CategoriaEntity;
+import trilha.back.financys.application.entities.CategoriaEntity;
 
 
 @Repository
