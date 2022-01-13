@@ -1,9 +1,8 @@
 package trilha.back.financys.dto;
 
 import lombok.*;
-import trilha.back.financys.enums.TypeEnum;
+import trilha.back.financys.dominio.entities.enums.TypeEnum;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,7 +12,8 @@ public class ChartDTO  {
 
     private String name;
     private TypeEnum type;
-    private double total;
+    private Double amount;
+    private Double total;
 
 
 

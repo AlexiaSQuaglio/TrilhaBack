@@ -4,15 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.dto.LancamentoDTO;
-import trilha.back.financys.entities.CategoriaEntity;
-import trilha.back.financys.entities.LancamentoEntity;
+import trilha.back.financys.dominio.entities.LancamentoEntity;
 import trilha.back.financys.exception.DivisaoPorZeroException;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,20 +77,20 @@ public class LancamentoService {
         return mapper.map(entity,LancamentoDTO.class );
     }
 
-public List<ChartDTO> grafico(){
+/*public List<ChartDTO> grafico(){
         List<ChartDTO> lists = new ArrayList<>();
         categoriaRepository.findAll().stream()
                 .forEach(categoria -> {
                     ChartDTO chartDTO = new ChartDTO();
                     chartDTO.setName(categoria.getName());
-                    chartDTO.setTotal(0.0);
+                    chartDTO.setTotal(0.0)  ;
                     categoria.getLancamento().forEach(lancamentoEntity -> {
                         chartDTO.setTotal(lancamentoEntity.getAmount() + chartDTO.getTotal());
                     });
                     lists.add(chartDTO);
                 });
         return lists;
-}
+}*/
 
 
    public Integer calculaMedia(Integer x, Integer y){

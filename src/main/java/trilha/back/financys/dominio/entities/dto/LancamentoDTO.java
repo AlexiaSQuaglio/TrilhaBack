@@ -1,6 +1,7 @@
 package trilha.back.financys.dto;
 
 import lombok.*;
+import trilha.back.financys.dominio.entities.enums.TypeEnum;
 
 @Data
 @AllArgsConstructor
@@ -11,9 +12,9 @@ public class LancamentoDTO {
     private Long categoryId;
     private String name;
     private String description;
-    private String amount;
+    private Double amount;
     private String date;
-    private String type;
+    private TypeEnum type;
     private boolean paid;
 
 

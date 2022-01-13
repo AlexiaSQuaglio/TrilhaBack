@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import trilha.back.financys.dto.ChartDTO;
-import trilha.back.financys.entities.LancamentoEntity;
-import trilha.back.financys.service.LancamentoService;
+import trilha.back.financys.dominio.entities.LancamentoEntity;
+import trilha.back.financys.dominio.entities.service.LancamentoService;
 
 import java.util.List;
 
@@ -50,10 +49,10 @@ public class LancamentoController {
 	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
-	@GetMapping(path = "/grafico")
+	/*@GetMapping(path = "/grafico")
 	public ResponseEntity<List<ChartDTO>>grafico(){
 		return ResponseEntity.ok(lancamentoService.grafico());
-	}
+	}*/
 
 	@GetMapping(path = "/calcula")
 	public ResponseEntity<Integer>calculo(@PathVariable Integer x,@PathVariable Integer y ){
