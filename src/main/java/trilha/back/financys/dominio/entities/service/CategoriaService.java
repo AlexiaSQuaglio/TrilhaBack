@@ -29,8 +29,7 @@ public class CategoriaService {
 
     public CategoriaEntity getId(Long id) {
         Optional<CategoriaEntity> requestedCategoria = categoriaRepository.findById(id);
-        if (requestedCategoria.isPresent()){
-        }else{
+        if (requestedCategoria.isEmpty()){
             System.out.println("id nao encontrado");
         }
         return categoriaRepository.getById(id);
