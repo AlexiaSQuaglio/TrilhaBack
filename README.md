@@ -26,3 +26,48 @@ I: ISP (Princípio de Segregação de Interface) – Muitas interfaces especific
 D: DIP (Princípio de inversão da dependência) – Dependa de uma abstração e não de uma implementação.
 h) Foi utilizado até o momento o OCP(Open/Closed principle), LSP(Liskov Substitution Principle), ISP(Interface Segregation Principle)
 
+Desafio 11
+a)Lib(ou biblioteca) é um conjunto de funcionalidades que podem ser reaproveitadas pelos seus projetos.
+b)Clojure - uma linguagem de programação que combina a flexibilidade e facilidade de uma linguagem de script com a robustez do Java;
+Apache Log4j – ele fornece uma excelente estrutura para produzir logs coerentes para aplicativos.
+c)O Maven é uma ferramenta de integração de projetos, tendo como objetivo gerenciar dependências, 
+controlar versões de artefatos, gerar relatórios de produtividade, garantir execução de testes,
+manter nível de qualidade do código e entre outros.
+d)O Maven é uma ferramenta de gerenciamento e compreensão de projetos de software usada principalmente 
+em projetos Java, já o Gadle é um sistema de automação de códigos abertos baseado nos conceitos do Apache Ant e do Apache Maven.
+e) I. Driver em Java são classes de utilitário usadas para realizar tarefas, essas classes são usadas em JDBC para 
+conectar um aplicativo Java a um banco de dados.
+   II. As bibliotecas são adicionadas no Pom.xml quando adicionamos as dependências e suas versões, com isso o Maven 
+baixa essas bibliotecas e assim sendo possível sua utilização no projeto.
+  III.Para realizar a conexão ao banco de dados SQL Server em um projeto Java, é necessário utilizar um driver JDBC 
+adequado com uma rotina de programação. Com o SQL Server existem dois drivers, o oficial da Microsoft e o opensource jTDS. Para o driver da Microsoft
+deve se seguir adicionar na classe Java ou no arquivo JSP a seguinte rotina:
+
+String usuario = "exemplo";
+String senha = "123456";
+String url = "jdbc:sqlserver://sql.locadados.com.br:1433;databaseName=hsegura_tutorial" +
+                       ";user=" + usuario + ";password=" + senha + ";";
+try {
+    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    Connection conexao = DriverManager.getConnection(url);
+} catch (ClassNotFoundException e) {
+    // Erro caso o driver JDBC não foi instalado
+    e.printStackTrace();
+} catch (SQLException e) {
+    // Erro caso haja problemas para se conectar ao banco de dados
+    e.printStackTrace();
+}
+Já para o driver jTDS é feito da seguinte maneira:
+String url = "jdbc:jtds:sqlserver://sql.locadados.com.br:1433/hsegura_tutorial";
+String usuario = "exemplo";
+String senha = "123456";
+try {
+Class.forName("net.sourceforge.jtds.jdbc.Driver");
+Connection conexao = DriverManager.getConnection(url, usuario, senha);
+} catch (ClassNotFoundException e) {
+// Erro caso o driver JDBC não foi instalado
+e.printStackTrace();
+} catch (SQLException e) {
+// Erro caso haja problemas para se conectar ao banco de dados
+e.printStackTrace();
+}
