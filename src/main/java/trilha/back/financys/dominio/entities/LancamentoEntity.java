@@ -51,6 +51,6 @@ public class LancamentoEntity implements Serializable{
 	private TypeEnum type;
 
 	@NotNull(message = "Paid nao pode ser nulo")
-	private boolean paid;
+	private Boolean paid;
 
 }

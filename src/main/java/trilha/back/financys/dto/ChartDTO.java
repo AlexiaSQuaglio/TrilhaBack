@@ -1,7 +1,10 @@
 package trilha.back.financys.dto;
 
-import lombok.*;
-import trilha.back.financys.dominio.entities.enums.TypeEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import trilha.back.financys.enums.TypeEnum;
 
 @AllArgsConstructor
 @NoArgsConstructor

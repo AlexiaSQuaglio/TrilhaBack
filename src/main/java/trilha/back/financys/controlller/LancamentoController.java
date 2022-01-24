@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.LancamentoEntity;
-import trilha.back.financys.dominio.entities.service.LancamentoService;
+import trilha.back.financys.exception.LancamentoNotFoundException;
+
 
 import java.util.List;
 
@@ -19,24 +20,24 @@ public class LancamentoController {
 	private ModelMapper mapper;
 
 	@Autowired
-	private LancamentoService lancamentoService;
+	private trilha.back.financys.service.LancamentoService lancamentoService;
 
 
 	@GetMapping(value = "/listar")
 	@ResponseStatus(HttpStatus.OK)
-		public List<LancamentoEntity> getAll() {
-			return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
-		}
+	public List<LancamentoEntity> getAll() {
+		return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
+	}
 
 	@GetMapping(path = "/buscar/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity <LancamentoEntity>getId(@PathVariable("id") Long id) {
+	public ResponseEntity<LancamentoEntity> getId(@PathVariable("id") Long id) {
 		return ResponseEntity.ok().body(lancamentoService.getId(id));
-			}
+	}
 
-	@PostMapping (path = "/salvar")
+	@PostMapping(path = "/salvar")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<LancamentoEntity>salvar(@RequestBody LancamentoEntity lancamento) {
+	public ResponseEntity<LancamentoEntity> salvar(@RequestBody LancamentoEntity lancamento) {
 		return ResponseEntity.ok().body(lancamentoService.salvar(lancamento));
 	}
 
@@ -55,7 +56,16 @@ public class LancamentoController {
 	}*/
 
 	@GetMapping(path = "/calcula")
-	public ResponseEntity<Integer>calculo(@PathVariable Integer x,@PathVariable Integer y ){
-		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
+	public ResponseEntity<Integer> calculo(@PathVariable Integer x, @PathVariable Integer y) {
+		return ResponseEntity.ok(lancamentoService.calculaMedia(x, y));
+	}
+
+	@GetMapping("/filter")
+	public ResponseEntity<List<LancamentoEntity>> getLancamentoDependentes(
+			@RequestParam(value = "data_lancamento", required = false) String date,
+			@RequestParam(value = "amount", required = false) String amount,
+			@RequestParam(value = "paid", required = false) boolean paid)
+	throws LancamentoNotFoundException, NullPointerException {
+		return new ResponseEntity<>(lancamentoService.getLancamentoDependentes(date,amount,paid), HttpStatus.OK);
 	}
 }

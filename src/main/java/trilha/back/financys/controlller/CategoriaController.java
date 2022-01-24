@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.CategoriaEntity;
-import trilha.back.financys.dominio.entities.service.CategoriaService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,11 +13,8 @@ import java.util.List;
 @RequestMapping (path = "/categorias")
 public class CategoriaController {
 
-
-
 	@Autowired
-	private CategoriaService categoriaService;
-
+	private trilha.back.financys.service.CategoriaService categoriaService;
 
 	@GetMapping(path = "/listar")
 	@ResponseStatus(HttpStatus.OK)

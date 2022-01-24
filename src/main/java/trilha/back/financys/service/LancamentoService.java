@@ -4,14 +4,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.dominio.entities.LancamentoEntity;
 import trilha.back.financys.exception.DivisaoPorZeroException;
+import trilha.back.financys.exception.LancamentoNotFoundException;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -53,7 +56,7 @@ public class LancamentoService {
         lancamentoEdita.setName(lancamento.getName());
         lancamentoEdita.setDescription(lancamento.getDescription());
         lancamentoEdita.setAmount(lancamento.getAmount());
-        lancamentoEdita.setPaid(lancamento.isPaid());
+        lancamentoEdita.setPaid(lancamento.getPaid());
         lancamentoEdita.setType(lancamento.getType());
         lancamentoEdita.setDate(lancamento.getDate());
         lancamentoEdita.setCategoryId(lancamentoEdita.getCategoryId());
@@ -101,7 +104,23 @@ public class LancamentoService {
           throw new DivisaoPorZeroException("Erro ao dividir por 0");
        }
     }
+    // throws LancamentoNotFoundException
 
+    public List<LancamentoEntity>getLancamentoDependentes(String date, String amount, Boolean paid){
+       if (date == null || amount == null){
+           throw new LancamentoNotFoundException("Parâmetros com valores errados");
+       }
+       List<LancamentoEntity> lancamento = lancamentoRepository.findAll()
+               .stream()
+               .filter(lancamentoEntity -> lancamentoEntity.getDate().equals(date)
+                    && lancamentoEntity.getAmount().equals(amount)
+                    && lancamentoEntity.getPaid() == paid)
+               .collect(Collectors.toList());
+       if (CollectionUtils.isEmpty(lancamento)){
+           System.out.println("lancamento não encontrado");
+       }
+       return lancamento;
+    }
 
 
 }
