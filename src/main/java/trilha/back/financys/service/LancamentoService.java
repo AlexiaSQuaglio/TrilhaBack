@@ -87,7 +87,7 @@ public class LancamentoService {
        }
     }
 
-    public List<LancamentoEntity>getLancamentoDependentes(String date, String amount, Boolean paid){
+    public List<LancamentoEntity>getLancamentoDependentes(String date, Double amount, Boolean paid){
        if (date == null || amount == null){
            throw new LancamentoNotFoundException("Parâmetros com valores errados");
        }

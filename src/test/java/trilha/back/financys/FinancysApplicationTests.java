@@ -32,8 +32,7 @@ class FinancysApplicationTests {
 		lancamentoEntities.add(lancamento);
 
 		Mockito.when(lancamentoRepository.findAll()).thenReturn(lancamentoEntities);
-		Assertions.assertFalse(lancamentoService.getAll().isEmpty());
-		Assertions.assertEquals(1, lancamentoService.getLancamentoDependentes("27/04/2000", "360.50", true));
+		Assertions.assertEquals(1, lancamentoService.getLancamentoDependentes("27/04/2000", 360.50, true).size());
 
 
 	}

@@ -59,7 +59,7 @@ public class LancamentoController {
 	@GetMapping("/filter")
 	public ResponseEntity<List<LancamentoEntity>> getLancamentoDependentes(
 			@RequestParam(value = "data_lancamento", required = false) String date,
-			@RequestParam(value = "amount", required = false) String amount,
+			@RequestParam(value = "amount", required = false) Double amount,
 			@RequestParam(value = "paid", required = false) boolean paid)
 	throws LancamentoNotFoundException, NullPointerException {
 		return new ResponseEntity<>(lancamentoService.getLancamentoDependentes(date,amount,paid), HttpStatus.OK);
