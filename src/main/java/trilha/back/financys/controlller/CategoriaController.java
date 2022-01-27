@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.CategoriaEntity;
 
+
 import javax.validation.Valid;
 import java.util.List;
 

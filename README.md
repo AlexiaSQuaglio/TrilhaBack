@@ -71,3 +71,11 @@ e.printStackTrace();
 // Erro caso haja problemas para se conectar ao banco de dados
 e.printStackTrace();
 }
+
+Desafio 12
+a) O teste unitário ou de unidade é uma modalidade de testes que se concentra
+na verificação da menor unidade do projeto de software. É realizado o teste de uma 
+unidade lógica, com uso de dados suficientes para se testar apenas a lógica da unidade 
+em questão.
+
+b)

@@ -29,7 +29,6 @@ public class LancamentoService {
     @Autowired
     ModelMapper mapper;
 
-
     public LancamentoService(LancamentoRepository lancamentoRepository, ModelMapper mapper) {
         this.lancamentoRepository = lancamentoRepository;
         this.mapper = mapper;
@@ -71,7 +70,6 @@ public class LancamentoService {
         return lancamentoRepository.save(lancamentoEntity);
     }
 
-
     private LancamentoEntity mapToDto(LancamentoDTO dto) {
         return mapper.map(dto,LancamentoEntity.class );
     }
@@ -79,22 +77,6 @@ public class LancamentoService {
     private LancamentoDTO mapToEntity(LancamentoEntity entity) {
         return mapper.map(entity,LancamentoDTO.class );
     }
-
-/*public List<ChartDTO> grafico(){
-        List<ChartDTO> lists = new ArrayList<>();
-        categoriaRepository.findAll().stream()
-                .forEach(categoria -> {
-                    ChartDTO chartDTO = new ChartDTO();
-                    chartDTO.setName(categoria.getName());
-                    chartDTO.setTotal(0.0)  ;
-                    categoria.getLancamento().forEach(lancamentoEntity -> {
-                        chartDTO.setTotal(lancamentoEntity.getAmount() + chartDTO.getTotal());
-                    });
-                    lists.add(chartDTO);
-                });
-        return lists;
-}*/
-
 
    public Integer calculaMedia(Integer x, Integer y){
       try {
@@ -104,7 +86,6 @@ public class LancamentoService {
           throw new DivisaoPorZeroException("Erro ao dividir por 0");
        }
     }
-    // throws LancamentoNotFoundException
 
     public List<LancamentoEntity>getLancamentoDependentes(String date, String amount, Boolean paid){
        if (date == null || amount == null){
@@ -121,7 +102,6 @@ public class LancamentoService {
        }
        return lancamento;
     }
-
 
 }
 
