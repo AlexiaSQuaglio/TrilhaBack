@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.CategoriaEntity;
+import trilha.back.financys.service.CategoriaService;
 
 
 import javax.validation.Valid;
@@ -15,7 +16,7 @@ import java.util.List;
 public class CategoriaController {
 
 	@Autowired
-	private trilha.back.financys.service.CategoriaService categoriaService;
+	private CategoriaService categoriaService;
 
 	@GetMapping(path = "/listar")
 	@ResponseStatus(HttpStatus.OK)
@@ -45,7 +46,7 @@ public class CategoriaController {
 
 	@PutMapping(path = "/update/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") Long id, @RequestBody CategoriaEntity categoria) {
+	public void update(@PathVariable("id") Long id, @RequestBody @Valid CategoriaEntity categoria) {
 		categoriaService.atualizaCategoria(categoria, id);
 
 	}

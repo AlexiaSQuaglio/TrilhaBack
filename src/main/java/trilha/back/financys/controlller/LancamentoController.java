@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.LancamentoEntity;
 import trilha.back.financys.exception.LancamentoNotFoundException;
+import trilha.back.financys.service.LancamentoService;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class LancamentoController {
 	private ModelMapper mapper;
 
 	@Autowired
-	private trilha.back.financys.service.LancamentoService lancamentoService;
+	private LancamentoService lancamentoService;
 
 
 	@GetMapping(value = "/listar")
@@ -37,7 +39,7 @@ public class LancamentoController {
 
 	@PostMapping(path = "/salvar")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<LancamentoEntity> salvar(@RequestBody LancamentoEntity lancamento) {
+	public ResponseEntity<LancamentoEntity> salvar(@RequestBody @Valid LancamentoEntity lancamento) {
 		return ResponseEntity.ok().body(lancamentoService.salvar(lancamento));
 	}
 
@@ -47,7 +49,7 @@ public class LancamentoController {
 	}
 
 	@PutMapping(path = "/update/{id}")
-	public void update(@PathVariable("id") Long id, @RequestBody LancamentoEntity lancamento) {
+	public void update(@PathVariable("id") Long id, @RequestBody @Valid LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
 

@@ -7,10 +7,7 @@ import lombok.Setter;
 import trilha.back.financys.enums.TypeEnum;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 
@@ -31,11 +28,11 @@ public class LancamentoEntity implements Serializable{
 	@JoinColumn(name = "categoriaId")
 	private CategoriaEntity categoryId;
 
-	@NotBlank(message = "O nome nao pode ser nulo")
+	@NotEmpty(message = "O nome nao pode ser nulo")
 	@Size(min = 3, max = 45, message = "o nome deve ter no minimo 3 e o maximo 45 de caracteres")
 	private String name;
 
-	@NotBlank(message = "A descricao nao pode ser nulo")
+	@NotEmpty(message = "A descricao nao pode ser nulo")
 	@Size(min = 15, max = 150, message = "a descricao deve ter no minimo 15 e o maximo 150 de caracteres")
 	private String description;
 
@@ -43,11 +40,11 @@ public class LancamentoEntity implements Serializable{
 	@Min(value = 0, message = "valor deve ser maior que 0")
 	private Double amount;
 
-	@NotBlank(message = "A data nao pode ser nulo")
+	@NotEmpty(message = "A data nao pode ser nulo")
 	private String date;
 
 	@NotNull(message = "Type nao pode ser nulo ou vazio")
-	@Enumerated(EnumType.STRING)
+	@Enumerated(value = EnumType.STRING)
 	private TypeEnum type;
 
 	@NotNull(message = "Paid nao pode ser nulo")

@@ -122,9 +122,9 @@ na verificação da menor unidade do projeto de software. É realizado o teste d
 unidade lógica, com uso de dados suficientes para se testar apenas a lógica da unidade 
 em questão.
 
-b) Criar uma classe teste que estenda junit.framework.TestCase, depois as classes com regra de negocio, 
-dentro da classe teste é de boa pratica colocar como nome dos metodos de teste facilitando o 
-entendimento do código.
+b) Criar uma classe teste que estenda junit.framework.TestCase, depois as classes com regra de 
+negocio, dentro da classe teste é de boa pratica colocar como nome dos metodos de 
+teste facilitando o entendimento do código.
 Verificar se o teste só tenha sucesso porque o código esta correto e para o teste der falha
 somente se o cogigo testado estiver incorreto.
 Também é de boa pratica criar mensagens curtas e de facil compreensão.
