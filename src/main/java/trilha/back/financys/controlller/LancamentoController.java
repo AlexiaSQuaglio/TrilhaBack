@@ -53,9 +53,9 @@ public class LancamentoController {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}
 
-	@GetMapping(path = "/calcula")
+	@GetMapping(path = "/calcula/{x}&{y}")
 	public ResponseEntity<Integer> calculo(@PathVariable Integer x, @PathVariable Integer y) {
-		return ResponseEntity.ok(lancamentoService.calculaMedia(x, y));
+		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
 	}
 
 	@GetMapping("/filter")
