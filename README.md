@@ -39,13 +39,19 @@ D: DIP (Princípio de inversão da dependência) – Dependa de uma abstração 
 h) Foi utilizado até o momento o OCP(Open/Closed principle), LSP(Liskov Substitution Principle), ISP(Interface Segregation Principle)
 
 O que é DDD?
+
   O Domain Driven Design combina práticas de design e desenvolvimento, oferecendo ferramentqas de modelagem
+
   estratégica e tática para entregar um software de alta qualidade. Tem como objetivo acelerar o desenvolvimento de
+
   software que lidam com complexos processos de négocios.
 
-- Por que os padrões são divididos entre criação, estruturais e comportamentais?
+Por que os padrões são divididos entre criação, estruturais e comportamentais?
+
   Existem vários tipos de padrões de projetos, sendo assim, para ter uma melhor organização e facilitar o programador, foi divididos em
+
   3 grandes categorias sendo os de criação, estrututais e comportametais. Todos os padrões destas categorias tem um conjunto de 
+
   características específicas, que motivam a categorização deles.
 
 Desafio 11
@@ -117,13 +123,21 @@ String usuario = "exemplo";
 String senha = "123456";
 
 try {
+
 Class.forName("net.sourceforge.jtds.jdbc.Driver");
+
 Connection conexao = DriverManager.getConnection(url, usuario, senha);
+
 } catch (ClassNotFoundException e) {
+
 // Erro caso o driver JDBC não foi instalado
+
 e.printStackTrace();
+
 } catch (SQLException e) {
+
 // Erro caso haja problemas para se conectar ao banco de dados
+
 e.printStackTrace();
 }
 
