@@ -64,6 +64,11 @@ public class LancamentoController {
 		return ResponseEntity.ok(lancamentoService.listByCategoria());
 	}
 
+	@GetMapping("/stream")
+	public ResponseEntity<List<ChartDTO>> listStream(){
+		return ResponseEntity.ok(lancamentoService.ListDTO());
+	}
+	
 	@GetMapping("/filter")
 	public ResponseEntity<List<LancamentoEntity>> getLancamentoDependentes(
 			@RequestParam(value = "data_lancamento", required = false) String date,

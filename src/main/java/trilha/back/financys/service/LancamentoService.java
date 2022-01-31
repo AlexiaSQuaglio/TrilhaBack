@@ -115,7 +115,7 @@ public class LancamentoService {
                                     item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
                                 },
                                 () -> {
-                                    dto.add(new ChartDTO(lancamentoEntity.getNameCategoria(), lancamentoEntity.getAmount()));
+                                    dto.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
                                 }
                         ));
         return dto;
