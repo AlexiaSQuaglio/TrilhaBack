@@ -38,6 +38,12 @@ D: DIP (Princípio de inversão da dependência) – Dependa de uma abstração 
 
 h) Foi utilizado até o momento o OCP(Open/Closed principle), LSP(Liskov Substitution Principle), ISP(Interface Segregation Principle)
 
+O que é DDD?
+  O Domain Driven Design combina práticas de design e desenvolvimento, oferecendo ferramentqas de modelagem
+  estratégica e tática para entregar um software de alta qualidade. Tem como objetivo acelerar o desenvolvimento de
+  software que lidam com complexos processos de négocios.
+
+
 Desafio 11
 
 a)Lib(ou biblioteca) é um conjunto de funcionalidades que podem ser reaproveitadas pelos seus projetos.
@@ -97,6 +103,7 @@ try {
     e.printStackTrace();
 
 }
+
 Já para o driver jTDS é feito da seguinte maneira:
 
 String url = "jdbc:jtds:sqlserver://sql.locadados.com.br:1433/hsegura_tutorial";

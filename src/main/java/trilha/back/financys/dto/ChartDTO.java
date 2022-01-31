@@ -10,14 +10,9 @@ import trilha.back.financys.enums.TypeEnum;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ChartDTO  {
-
+public class ChartDTO {
 
     private String name;
     private TypeEnum type;
     private Double amount;
-    private Double total;
-
-
-
 }

@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import trilha.back.financys.dominio.entities.CategoriaEntity;
 import trilha.back.financys.dominio.entities.LancamentoEntity;
+import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.dto.LancamentoDTO;
 import trilha.back.financys.exception.DivisaoPorZeroException;
 import trilha.back.financys.exception.LancamentoNotFoundException;
+import trilha.back.financys.exception.ObjectNotFoundException;
 import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,6 +82,28 @@ public class LancamentoService {
         return mapper.map(entity,LancamentoDTO.class );
     }
 
+    public List<ChartDTO> listByCategoria() {
+        List<CategoriaEntity> categoria = new ArrayList<CategoriaEntity>();
+        categoria = categoriaRepository.findAll();
+        List<ChartDTO> chartDTO = new ArrayList<ChartDTO>();
+
+        for (CategoriaEntity objCategoria : categoria){
+            List<LancamentoEntity> lancamento = lancamentoRepository.findAll();
+            double total = 0;
+            ChartDTO dto = new ChartDTO();
+            dto.setName(objCategoria.getName());
+
+            for (LancamentoEntity objLancamento : lancamento){
+                if (objLancamento.getCategoryId().getId() == objCategoria.getId()){
+                    total += objLancamento.getAmount();
+                }
+            }
+            dto.setAmount(total);
+            chartDTO.add(dto);
+        }
+        return chartDTO;
+    }
+
    public Integer calculaMedia(Integer x, Integer y){
       try {
           return (x/y);
@@ -89,7 +115,7 @@ public class LancamentoService {
 
     public List<LancamentoEntity>getLancamentoDependentes(String date, Double amount, Boolean paid){
        if (date == null || amount == null){
-           throw new LancamentoNotFoundException("Parâmetros com valores errados");
+           throw new ObjectNotFoundException("Parâmetros com valores errados");
        }
        List<LancamentoEntity> lancamento = lancamentoRepository.findAll()
                .stream()
@@ -98,7 +124,7 @@ public class LancamentoService {
                     && lancamentoEntity.getPaid() == paid)
                .collect(Collectors.toList());
        if (CollectionUtils.isEmpty(lancamento)){
-           System.out.println("lancamento não encontrado");
+           throw new LancamentoNotFoundException("lancamento não encontrado");
        }
        return lancamento;
     }
