@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.dominio.entities.LancamentoEntity;
+import trilha.back.financys.dto.ChartDTO;
 import trilha.back.financys.exception.LancamentoNotFoundException;
 import trilha.back.financys.service.LancamentoService;
 
@@ -56,6 +57,11 @@ public class LancamentoController {
 	@GetMapping(path = "/calcula/{x}&{y}")
 	public ResponseEntity<Integer> calculo(@PathVariable Integer x, @PathVariable Integer y) {
 		return ResponseEntity.ok(lancamentoService.calculaMedia(x,y));
+	}
+
+	@GetMapping("/dto")
+	public ResponseEntity<List<ChartDTO>> listaDTO(){
+		return ResponseEntity.ok(lancamentoService.listByCategoria());
 	}
 
 	@GetMapping("/filter")
