@@ -14,10 +14,13 @@ b) Obter - requisição por onde nós pedimos a representação de um recurso, p
 Desafio 9
 
 a)	Design Patterns (Padrões de Projetos) são soluções para problemas comuns encontrados no desenvolvimento ou na manutenção
+
 de softwares orientação a objeto.
 
 b)	Padrões de criação: Abstract Factory – Permite elaborar uma interface para criação de famílias de objetos relacionados ou interdependentes, que não especifica suas classes concretas. A partir desse padrão é possível criar fabricas concretas, que são responsáveis pela criação de novos objetos para entender as necessidades dos clientes. Portanto, essa prática ajuda a excluir a dependência entre o cliente e a classe dos objetos usados por ele.
+
 Padrões estruturais: Adapter – A ação desse padrão é converter a interface de uma classe em outra, esperada pelo objeto cliente. Através dessa conversão será permitido que classes com imcompatibilidade de interfaces, consigam serem adaptadas para que outros objetos possam trabalhar juntos.
+
 Padrões comportamentais: Chain of Responsability – Esse padrão encadeia vários objetos receptores que transporta uma solicitação, sendo aguardada até que um dos objetos responda. Com isso, se evita o acoplamento entre o remetente de uma solicitação e seu destinatário, dando oportunidade para mais de um objeto tratar a solicitação.
 
 c)	Arquitetura de software define a forma como um sistema trabalha e como os novos módulos podem ser construídos e de forma intuitiva.
