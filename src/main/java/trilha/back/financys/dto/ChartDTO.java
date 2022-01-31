@@ -15,4 +15,7 @@ public class ChartDTO {
     private String name;
     private TypeEnum type;
     private Double amount;
+
+
+
 }

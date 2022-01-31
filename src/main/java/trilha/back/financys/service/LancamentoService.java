@@ -104,6 +104,23 @@ public class LancamentoService {
         return chartDTO;
     }
 
+    public List<ChartDTO> ListDTO(){
+        List<LancamentoEntity> lancamentoList = lancamentoRepository.findAll();
+        List<ChartDTO> dto = new ArrayList<>();
+
+        lancamentoList.forEach(lancamentoEntity ->
+                dto.stream().filter(item -> item.getName().equals(lancamentoEntity.getName())).findAny()
+                        .ifPresentOrElse(
+                                item -> {
+                                    item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
+                                },
+                                () -> {
+                                    dto.add(new ChartDTO(lancamentoEntity.getNameCategoria(), lancamentoEntity.getAmount()));
+                                }
+                        ));
+        return dto;
+    }
+
    public Integer calculaMedia(Integer x, Integer y){
       try {
           return (x/y);
