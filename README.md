@@ -43,6 +43,9 @@ O que é DDD?
   estratégica e tática para entregar um software de alta qualidade. Tem como objetivo acelerar o desenvolvimento de
   software que lidam com complexos processos de négocios.
 
+- Por que os padrões são divididos entre criação, estruturais e comportamentais?
+  Existem vários tipos de padrões de projetos, sendo assim, para ter uma melhor organização e facilitar o programador, foi divididos em
+  3 grandes categorias sendo os de criação, estrututais e comportametais.
 
 Desafio 11
 
