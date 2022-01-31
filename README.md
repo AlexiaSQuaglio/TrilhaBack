@@ -45,7 +45,8 @@ O que é DDD?
 
 - Por que os padrões são divididos entre criação, estruturais e comportamentais?
   Existem vários tipos de padrões de projetos, sendo assim, para ter uma melhor organização e facilitar o programador, foi divididos em
-  3 grandes categorias sendo os de criação, estrututais e comportametais.
+  3 grandes categorias sendo os de criação, estrututais e comportametais. Todos os padrões destas categorias tem um conjunto de 
+  características específicas, que motivam a categorização deles.
 
 Desafio 11
 
