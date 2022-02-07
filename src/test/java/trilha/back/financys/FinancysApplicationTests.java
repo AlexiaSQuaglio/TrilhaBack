@@ -42,5 +42,5 @@ class FinancysApplicationTests {
 		Assertions.assertEquals(1, lancamentoService.getLancamentoDependentes("27/04/2000", 360.50, true).size());
 
 
-	}
+		}
 	}

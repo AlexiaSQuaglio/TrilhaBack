@@ -26,30 +26,30 @@ public class LancamentoController {
 	private LancamentoService lancamentoService;
 
 
-	@GetMapping(value = "/listar")
+	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<LancamentoEntity> getAll() {
 		return ResponseEntity.ok().body(lancamentoService.getAll()).getBody();
 	}
 
-	@GetMapping(path = "/buscar/{id}")
+	@GetMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<LancamentoEntity> getId(@PathVariable("id") Long id) {
 		return ResponseEntity.ok().body(lancamentoService.getId(id));
 	}
 
-	@PostMapping(path = "/salvar")
+	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<LancamentoEntity> salvar(@RequestBody @Valid LancamentoEntity lancamento) {
 		return ResponseEntity.ok().body(lancamentoService.salvar(lancamento));
 	}
 
-	@DeleteMapping(path = "/deletar/{id}")
+	@DeleteMapping(path = "/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		lancamentoService.lancamentoDeletar(id);
 	}
 
-	@PutMapping(path = "/update/{id}")
+	@PutMapping(path = "/{id}")
 	public void update(@PathVariable("id") Long id, @RequestBody @Valid LancamentoEntity lancamento) {
 		lancamentoService.atualizaLancamento(lancamento, id);
 	}

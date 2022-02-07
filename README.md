@@ -43,7 +43,7 @@ h) Foi utilizado até o momento o OCP(Open/Closed principle), LSP(Liskov Substit
 
 O que é DDD?
 
-  O Domain Driven Design combina práticas de design e desenvolvimento, oferecendo ferramentqas de modelagem
+  O Domain Driven Design combina práticas de design e desenvolvimento, oferecendo ferramentas de modelagem
 
   estratégica e tática para entregar um software de alta qualidade. Tem como objetivo acelerar o desenvolvimento de
 
@@ -175,3 +175,7 @@ c) O intuito de realizar teste unitario é previnir contra o aparecimento de bug
 um código mau estrito, poder realizar alterações, verificar se tem falha
 
 d) Bibliotecas de Mock e Runners
+
+Desafio 13
+
+![img.png](img.png)

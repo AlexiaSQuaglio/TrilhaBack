@@ -18,33 +18,32 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 
-	@GetMapping(path = "/listar")
+	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-
 	public List<CategoriaEntity> getAll() {
 		return ResponseEntity.ok().body(categoriaService.getAll()).getBody();
 	}
 
-	@GetMapping(path = "/buscar/{id}")
+	@GetMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity <CategoriaEntity>findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(categoriaService.getId(id));
 	}
 
-	@PostMapping (path = "/salvar")
+	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity <CategoriaEntity>salvar(@RequestBody @Valid CategoriaEntity categoria) {
 		return ResponseEntity.ok().body(categoriaService.salvar(categoria));
 	}
 
-	@DeleteMapping(path = "/deletar/{id}")
+	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable("id") Long id) {
 		categoriaService.categoriaDeletar(id);
 
 	}
 
-	@PutMapping(path = "/update/{id}")
+	@PutMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@PathVariable("id") Long id, @RequestBody @Valid CategoriaEntity categoria) {
 		categoriaService.atualizaCategoria(categoria, id);

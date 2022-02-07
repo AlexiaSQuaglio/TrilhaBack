@@ -50,8 +50,6 @@ public class LancamentoEntity implements Serializable{
 	@NotNull(message = "Paid nao pode ser nulo")
 	private Boolean paid;
 
-	public String getNameCategoria(){
-		return this.categoryId.getName();
-	}
+
 
 }

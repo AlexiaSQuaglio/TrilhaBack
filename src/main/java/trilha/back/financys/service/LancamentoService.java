@@ -106,6 +106,7 @@ public class LancamentoService {
 
     public List<ChartDTO> ListDTO(){
         List<LancamentoEntity> lancamentoList = lancamentoRepository.findAll();
+        List<CategoriaEntity> categoriaList = categoriaRepository.findAll();
         List<ChartDTO> dto = new ArrayList<>();
 
         lancamentoList.forEach(lancamentoEntity ->
