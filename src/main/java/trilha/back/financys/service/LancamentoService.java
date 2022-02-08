@@ -98,7 +98,7 @@ public class LancamentoService {
                     total += objLancamento.getAmount();
                 }
             }
-            dto.setAmount(total);
+            dto.setTotal(total);
             chartDTO.add(dto);
         }
         return chartDTO;
@@ -107,13 +107,12 @@ public class LancamentoService {
     public List<ChartDTO> ListDTO(){
         List<ChartDTO> listDTO = new ArrayList<ChartDTO>();
         categoriaRepository.findAll()
-                .stream()
                 .forEach(categoriaEntity -> {
                     ChartDTO dto = new ChartDTO();
                     dto.setName(categoriaEntity.getName());
-                    dto.setAmount(0.0);
+                    dto.setTotal(0.0);
                     categoriaEntity.getLancamentoEntity().forEach(lancamento ->{
-                        dto.setAmount(lancamento.getAmount()+dto.getAmount());
+                        dto.setTotal(lancamento.getAmount()+dto.getTotal());
                     });
                     listDTO.add(dto);
                 });

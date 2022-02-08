@@ -51,7 +51,7 @@ public class LancamentoEntity implements Serializable{
 	private Boolean paid;
 
 	@ManyToOne
-	@JoinColumn(name = "category", referencedColumnName = "id")
+	@JoinColumn(name = "categoria", referencedColumnName = "id")
 	private CategoriaEntity categoria;
 
 }
