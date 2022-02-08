@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum TypeEnum {
 
-    REVENUE("revenue"),
-    EXPENSE("expense");
+    revenue("revenue"),
+    expense("expense");
 
     private String typeEnum;
 
