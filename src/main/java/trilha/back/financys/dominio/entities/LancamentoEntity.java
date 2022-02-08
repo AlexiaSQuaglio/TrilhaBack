@@ -50,6 +50,8 @@ public class LancamentoEntity implements Serializable{
 	@NotNull(message = "Paid nao pode ser nulo")
 	private Boolean paid;
 
-
+	@ManyToOne
+	@JoinColumn(name = "category", referencedColumnName = "id")
+	private CategoriaEntity categoria;
 
 }

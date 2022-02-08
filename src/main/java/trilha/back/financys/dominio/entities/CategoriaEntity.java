@@ -1,6 +1,7 @@
 package trilha.back.financys.dominio.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tab_categoria")
@@ -32,5 +34,8 @@ public class CategoriaEntity implements Serializable {
 	@Size(min = 15, max = 30, message = "o nome deve ter no minimo{min} e o maximo{max} de caracter")
 	private String description;
 
-
+	@JsonIgnore
+	@OneToMany(mappedBy = "categoria")
+	private List<LancamentoEntity> lancamentoEntity;
 }
+

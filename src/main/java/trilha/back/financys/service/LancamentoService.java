@@ -105,21 +105,19 @@ public class LancamentoService {
     }
 
     public List<ChartDTO> ListDTO(){
-        List<LancamentoEntity> lancamentoList = lancamentoRepository.findAll();
-        List<CategoriaEntity> categoriaList = categoriaRepository.findAll();
-        List<ChartDTO> dto = new ArrayList<>();
-
-        lancamentoList.forEach(lancamentoEntity ->
-                dto.stream().filter(item -> item.getName().equals(lancamentoEntity.getName())).findAny()
-                        .ifPresentOrElse(
-                                item -> {
-                                    item.setAmount(item.getAmount() + lancamentoEntity.getAmount());
-                                },
-                                () -> {
-                                    dto.add(new ChartDTO(lancamentoEntity.getName(), lancamentoEntity.getAmount()));
-                                }
-                        ));
-        return dto;
+        List<ChartDTO> listDTO = new ArrayList<ChartDTO>();
+        categoriaRepository.findAll()
+                .stream()
+                .forEach(categoriaEntity -> {
+                    ChartDTO dto = new ChartDTO();
+                    dto.setName(categoriaEntity.getName());
+                    dto.setAmount(0.0);
+                    categoriaEntity.getLancamentoEntity().forEach(lancamento ->{
+                        dto.setAmount(lancamento.getAmount()+dto.getAmount());
+                    });
+                    listDTO.add(dto);
+                });
+        return listDTO;
     }
 
    public Integer calculaMedia(Integer x, Integer y){
