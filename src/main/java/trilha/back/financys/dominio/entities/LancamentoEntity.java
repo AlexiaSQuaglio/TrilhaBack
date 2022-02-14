@@ -24,9 +24,9 @@ public class LancamentoEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "categoriaId")
-	private CategoriaEntity categoryId;
+////	@ManyToOne
+//	@JoinColumn(name = "categoriaId")
+//	private CategoriaEntity categoryId;
 
 	@NotEmpty(message = "O nome nao pode ser nulo")
 	@Size(min = 3, max = 45, message = "o nome deve ter no minimo 3 e o maximo 45 de caracteres")

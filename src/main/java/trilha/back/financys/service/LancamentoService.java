@@ -62,7 +62,7 @@ public class LancamentoService {
         lancamentoEdita.setPaid(lancamento.getPaid());
         lancamentoEdita.setType(lancamento.getType());
         lancamentoEdita.setDate(lancamento.getDate());
-        lancamentoEdita.setCategoryId(lancamentoEdita.getCategoryId());
+//        lancamentoEdita.setCategoryId(lancamentoEdita.getCategoryId());
         ResponseEntity.ok().body(lancamentoRepository.save(lancamentoEdita));
     }
 
@@ -94,7 +94,7 @@ public class LancamentoService {
             dto.setName(objCategoria.getName());
 
             for (LancamentoEntity objLancamento : lancamento){
-                if (objLancamento.getCategoryId().getId() == objCategoria.getId()){
+                if (objLancamento.getCategoria().getId() == objCategoria.getId()){
                     total += objLancamento.getAmount();
                 }
             }
